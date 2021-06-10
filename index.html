@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+    <title>iChat</title>
+    <link rel="icon" href="./logo.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="./ichatfiles/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="./ichatfiles/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="./ichatfiles/style.min.css">
+    <link rel="stylesheet" href="./ichatfiles/notiflix-2.7.0.min.css">
+</head>
+
+<body>
+ 
+<div class="error" style="display: none;">
+    <span>error : not connect server ! now is restart ...<label style="color: #ee0000;margin-left: 10px;"
+                                                                class="error_tips"></label></span>
+    <p>
+        <button onclick="switch_tab(2)">close</button>
+    </p>
+</div>
+
+<!--register page-->
+<div class="register" style="display: none;">
+    
+    <div class="theme-cyan"><div class="authentication"><div class="container d-flex flex-column"><div class="row align-items-center justify-content-center no-gutters min-vh-100"><div class="col-12 col-md-7 col-lg-5 col-xl-4 py-md-11"><div class="card border-0 shadow-sm"><div class="card-body"><h3 class="text-center">Sign up</h3><p class="text-center mb-6">Create your free Account</p><form class="mb-4 mt-5"><div class="input-group mb-2">
+    <input type="text"  id="register_phone" class="form-control form-control-lg" placeholder="Enter your phone" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;"></div><div class="input-group mb-2">
+    <input type="text" id="register_username" class="form-control form-control-lg" placeholder="Enter your username" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;"></div><div class="input-group mb-4">
+    <input type="password" id="register_password" class="form-control form-control-lg" placeholder="Enter your password" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACIUlEQVQ4EX2TOYhTURSG87IMihDsjGghBhFBmHFDHLWwSqcikk4RRKJgk0KL7C8bMpWpZtIqNkEUl1ZCgs0wOo0SxiLMDApWlgOPrH7/5b2QkYwX7jvn/uc//zl3edZ4PPbNGvF4fC4ajR5VrNvt/mo0Gr1ZPOtfgWw2e9Lv9+chX7cs64CS4Oxg3o9GI7tUKv0Q5o1dAiTfCgQCLwnOkfQOu+oSLyJ2A783HA7vIPLGxX0TgVwud4HKn0nc7Pf7N6vV6oZHkkX8FPG3uMfgXC0Wi2vCg/poUKGGcagQI3k7k8mcp5slcGswGDwpl8tfwGJg3xB6Dvey8vz6oH4C3iXcFYjbwiDeo1KafafkC3NjK7iL5ESFGQEUF7Sg+ifZdDp9GnMF/KGmfBdT2HCwZ7TwtrBPC7rQaav6Iv48rqZwg+F+p8hOMBj0IbxfMdMBrW5pAVGV/ztINByENkU0t5BIJEKRSOQ3Aj+Z57iFs1R5NK3EQS6HQqF1zmQdzpFWq3W42WwOTAf1er1PF2USFlC+qxMvFAr3HcexWX+QX6lUvsKpkTyPSEXJkw6MQ4S38Ljdbi8rmM/nY+CvgNcQqdH6U/xrYK9t244jZv6ByUOSiDdIfgBZ12U6dHEHu9TpdIr8F0OP692CtzaW/a6y3y0Wx5kbFHvGuXzkgf0xhKnPzA4UTyaTB8Ph8AvcHi3fnsrZ7Wore02YViqVOrRXXPhfqP8j6MYlawoAAAAASUVORK5CYII=&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;"></div><div class="text-center mt-5"><a onclick="register()" class="btn btn-lg btn-primary" title="">Sign up</a></div></form><p class="text-center mb-0">Already have an account? <a class="link" onclick="switch_tab(2)">Sign in</a>.</p><div class="mt-4 d-grid gap-1"></div></div></div></div></div></div></div></div>
+
+
+
+    <h3>please register a count!</h3>
+    <p><input type="text" placeholder="your phone" id="register_phone"></p>
+    <p><input type="text" placeholder="your username" id="register_username"></p>
+    <p><input type="password" placeholder="your password" id="register_password"></p>
+    <p>
+        <button onclick="register()">register</button>
+        <label class="a">have count?<a href="javascript:void(0)" class="a" onclick="switch_tab(2)">go
+            login</a></label></p>
+</div>
+<!--login page-->
+<div class="login">
+
+
+    <div class="theme-cyan"><div class="authentication"><div class="container d-flex flex-column"><div class="row align-items-center justify-content-center no-gutters min-vh-100"><div class="col-12 col-md-7 col-lg-5 col-xl-4 py-md-11"><div class="card border-0 shadow-sm"><div class="card-body"><h3 class="text-center">Sign in</h3><p class="text-center mb-6">Make it simple,but significant</p><form class="mb-4 mt-5" _lpchecked="1"><div class="input-group mb-2"><input type="text" id="login_usernum" class="form-control form-control-lg" placeholder="Enter your phone" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;"></div><div class="input-group mb-4"><input type="password" id="login_password" class="form-control form-control-lg" placeholder="Enter your password" style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%; cursor: auto;"></div><div class="form-group d-flex justify-content-between"><label class="c_checkbox"><input type="checkbox" checked disabled><span class="ms-2 todo_name">Remember me</span><span class="checkmark"></span></label></div><div class="text-center mt-5"><a onclick="login()" class="btn btn-lg btn-primary" title="">Sign in</a></div></form><p class="text-center mb-0">Don't have an account yet <a class="link"  onclick="switch_tab(1)">Sign up</a>.</p></div></div></div></div></div></div></div>
+
+</div>
+
+
+
+
+<div id="layout" class="theme-cyan chat_div" style="display: none;">
+    <div class="navigation navbar justify-content-center py-xl-4 py-md-3 py-0 px-3"><a href="index.html" title="Postman" class="brand"><img src="./logo.jpg" title="logo" style="width: 40px;"></a>
+<div class="nav flex-md-column nav-pills flex-grow-1" role="tablist" aria-orientation="vertical">
+<a class="mb-xl-3 mb-md-2 nav-link" data-toggle="pill" href="index.html#nav-tab-user" role="tab"><img src="./ichatfiles/user.png" class="avatar sm rounded-circle" alt="user avatar"></a>
+<a style="display: none;" class="mb-xl-3 mb-md-2 nav-link active" data-toggle="pill" href="index.html#nav-tab-chat" role="tab">
+<i class="zmdi zmdi-comment-alt"></i></a>
+<a  style="display: none;" class="mb-xl-3 mb-md-2 nav-link" data-toggle="pill" href="index.html#nav-tab-phone" role="tab"><i class="zmdi zmdi-phone"></i></a>
+<a style="display: none;" class="mb-xl-3 mb-md-2 nav-link" data-toggle="pill" href="index.html#nav-tab-contact" role="tab"><i class="zmdi zmdi-account-circle"></i></a>
+<a style="display: none;" class="mb-xl-3 mb-md-2 nav-link d-none d-sm-block flex-grow-1" data-toggle="pill" href="index.html#nav-tab-pages" role="tab"><i class="zmdi zmdi-layers"></i></a>
+<a  class="mt-xl-3 mt-md-2 nav-link light-dark-toggle" href="javascript:void(0);"><i class="zmdi zmdi-brightness-2"></i><input class="light-dark-btn" type="checkbox"></a>
+<a style="display: none;"  class="mt-xl-3 mt-md-2 nav-link d-none d-sm-block" href="javascript:void(0);" role="tab"><i class="zmdi zmdi-settings"></i></a>
+</div>
+<button type="submit" class="btn sidebar-toggle-btn shadow-sm"><i class="zmdi zmdi-menu"></i></button></div><div class="sidebar border-end py-xl-4 py-3 px-xl-4 px-3"><div class="tab-content"><div class="tab-pane fade" id="nav-tab-user" role="tabpanel"><div class="d-flex justify-content-between align-items-center mb-4"><h3 class="mb-0 text-primary">Profile</h3><div><a href="http://v.bootstrapmb.com/2021/2/yxh1x9666/signin.html" title="" class="btn btn-dark">Sign Out</a></div></div><div class="form-group input-group-lg search mb-3"><i class="zmdi zmdi-search"></i><i class="zmdi zmdi-dialpad"></i><input type="text" class="form-control" placeholder="Search..."></div><div class="card border-0 text-center pt-3 mb-4"><div class="card-body"><div class="card-user-avatar"><img src="./ichatfiles/user.png" alt="avatar"><button type="button" class="btn btn-secondary btn-sm"><i class="zmdi zmdi-edit"></i></button></div><div class="card-user-detail mt-4"><h5>Michelle Green</h5><span class="text-muted"><a href="http://v.bootstrapmb.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="412c282229242d2d246f263324242f01262c20282d6f222e2c">[email&nbsp;protected]</a></span><p>+14 123 456 789 - New york(USA)</p><div class="social"><a class="icon p-2" href="index.html#" data-toggle="tooltip" title="" data-original-title="Facebook"><i class="zmdi zmdi-facebook-box"></i></a><a class="icon p-2" href="index.html#" data-toggle="tooltip" title="" data-original-title="Github"><i class="zmdi zmdi-github-box"></i></a><a class="icon p-2" href="index.html#" data-toggle="tooltip" title="" data-original-title="Linkedin"><i class="zmdi zmdi-linkedin-box"></i></a><a class="icon p-2" href="index.html#" data-toggle="tooltip" title="" data-original-title="Instagram"><i class="zmdi zmdi-instagram"></i></a></div></div></div></div><div class="card border-0"><ul class="list-group custom list-group-flush"><li class="list-group-item d-flex justify-content-between align-items-center"><span>Color scheme</span><ul class="choose-skin list-unstyled mb-0"><li data-theme="indigo" data-toggle="tooltip" title="" data-original-title="Theme-Indigo"><div class="indigo"></div></li><li class="active" data-theme="cyan" data-toggle="tooltip" title="" data-original-title="Theme-Cyan"><div class="cyan"></div></li><li data-theme="green" data-toggle="tooltip" title="" data-original-title="Theme-Green"><div class="green"></div></li><li data-theme="blush" data-toggle="tooltip" title="" data-original-title="Theme-Blush"><div class="blush"></div></li><li data-theme="dark" data-toggle="tooltip" title="" data-original-title="Theme-Dark"><div class="dark"></div></li></ul></li><li class="list-group-item d-flex justify-content-between align-items-center"><span>Desktop notifications</span><label class="c_checkbox"><input type="checkbox" checked=""><span class="checkmark"></span></label></li><li class="list-group-item d-flex justify-content-between align-items-center"><span>Sound notifications</span><label class="c_checkbox"><input type="checkbox"><span class="checkmark"></span></label></li><li class="list-group-item border-0 mt-2"><a class="link" href="index.html#"><i class="zmdi zmdi-chevron-right me-2"></i>Need Help? Let's chat</a>
+</li>
+<li class="list-group-item border-0">
+<a class="link" href="index.html#"><i class="zmdi zmdi-chevron-right me-2"></i> Knowledgebase</a>
+</li>
+<li class="list-group-item border-0">
+<a class="link" href="index.html#"><i class="zmdi zmdi-chevron-right me-2"></i> english (United States)</a>
+</li>
+<li class="list-group-item mb-2">
+<a class="link" href="index.html#"><i class="zmdi zmdi-chevron-right me-2"></i> Browser &amp; App Sessions</a>
+</li>
+</ul>
+
+<div class="card-body text-center border-top">
+<button type="button" class="btn btn-secondary">Update Profile</button>
+</div>
+</div>
+</div>
+
+<div class="tab-pane fade show active" id="nav-tab-chat" role="tabpanel">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+<h3 class="mb-0 text-primary chat_header">Chat</h3>
+<div >
+<button onclick="delCookie('token')" class="btn btn-dark" type="button">Log Out</button>
+</div>
+ </div>
+
+<div class="form-group input-group-lg search mb-3">
+<i class="zmdi zmdi-search"></i>
+<i class="zmdi zmdi-dialpad"></i>
+<input type="text" class="form-control" placeholder="Search...">
+</div>
+
+<ul class="chat-list">
+<li class="header d-flex justify-content-between ps-3 pe-3 mb-1">
+<span>RECENT CHATS</span>
+<div class="dropdown">
+<a class="btn btn-link px-1 py-0 border-0 text-muted dropdown-toggle" href="index.html#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-filter-list"></i></a>
+<div class="dropdown-menu dropdown-menu-right">
+<a class="dropdown-item" href="index.html#">Action</a>
+<a class="dropdown-item" href="index.html#">Another action</a>
+<a class="dropdown-item" href="index.html#">Something else here</a>
+</div>
+</div>
+</li>
+<li>
+<a href="javascript:;" class="card">
+<div class="card-body">
+<div class="media">
+<div class="avatar me-3">
+<div class="avatar rounded-circle no-image bg-primary text-light">
+<span><i class="zmdi zmdi-comment-text"></i></span>
+</div>
+</div>
+<div class="media-body overflow-hidden">
+<div class="d-flex align-items-center mb-1">
+<h6 class="text-truncate mb-0 me-auto">Support ChatBot</h6>
+</div>
+<div class="text-truncate">
+<i class="zmdi zmdi-circle text-success"></i> Online All
+</div>
+</div>
+</div>
+</div>
+</a>
+</li>
+<div class="friend_item">
+
+</div>
+
+
+</ul>
+</div>
+
+
+
+
+<div class="tab-pane fade" id="nav-tab-pages" role="tabpanel">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+<h3 class="mb-0 text-primary">Pages</h3>
+</div>
+
+<div class="card border-0">
+<ul class="list-group list-group-flush">
+<li class="list-group-item border-0 mt-3">
+<a class="link" href="http://v.bootstrapmb.com/2021/2/yxh1x9666/signin.html"><i class="zmdi zmdi-label-alt me-2"></i> Sign in</a>
+</li>
+<li class="list-group-item border-0">
+<a class="link" href="http://v.bootstrapmb.com/2021/2/yxh1x9666/signup.html"><i class="zmdi zmdi-label-alt me-2"></i> Sign up</a>
+</li>
+<li class="list-group-item border-0">
+<a class="link" href="http://v.bootstrapmb.com/2021/2/yxh1x9666/password-reset.html"><i class="zmdi zmdi-label-alt me-2"></i> Reset Password</a>
+</li>
+<li class="list-group-item border-0">
+<a class="link" href="http://v.bootstrapmb.com/2021/2/yxh1x9666/settings.html"><i class="zmdi zmdi-label-alt me-2"></i> Settings</a>
+</li>
+<li class="list-group-item border-0">
+<a class="link" href="index.html"><i class="zmdi zmdi-label-alt me-2"></i> Single Chat Room</a>
+</li>
+<li class="list-group-item border-0">
+<a class="link" href="http://v.bootstrapmb.com/2021/2/yxh1x9666/group-chat.html"><i class="zmdi zmdi-label-alt me-2"></i> Group Chat Room</a>
+</li>
+<li class="list-group-item border-0">
+<a class="link" href="http://v.bootstrapmb.com/2021/2/yxh1x9666/audio-call.html"><i class="zmdi zmdi-label-alt me-2"></i> Audio Call Room</a>
+</li>
+<li class="list-group-item border-0">
+<a class="link" href="http://v.bootstrapmb.com/2021/2/yxh1x9666/video-call.html"><i class="zmdi zmdi-label-alt me-2"></i> Video Call Room</a>
+</li>
+<li class="list-group-item mb-3">
+<a class="link" href="index.html"><i class="zmdi zmdi-label-alt me-2"></i> Documentation</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<div class="main px-xl-5 px-lg-4 px-3"   style="margin-right: 0px;">
+
+<div class="chat-body">
+
+<div class="chat-header border-bottom py-xl-4 py-md-3 py-2">
+<div class="container-xxl">
+<div class="row align-items-center">
+
+<div class="col-6 col-xl-4">
+<div class="media">
+<div class="me-3 show-user-detail">
+<span class="status rounded-circle"></span>
+
+
+<img class="avatar rounded-circle headerimg" src="./ichatfiles/user.png" alt="avatar">
+</div>
+<div class="media-body overflow-hidden">
+<div class="d-flex align-items-center mb-1">
+<h6 class="text-truncate mb-0 me-auto directname"> </h6>
+
+</div>
+<div class="text-truncate">online</div>
+</div>
+</div>
+</div>
+
+<div class="col-6 col-xl-8 text-end">
+<ul class="nav justify-content-end">
+<li class="nav-item list-inline-item d-none d-md-block me-3">
+<a href="index.html#" class="nav-link text-muted px-3" data-toggle="collapse" data-target="#chat-search-div" aria-expanded="true" title="Search this chat">
+<i class="zmdi zmdi-search zmdi-hc-lg"></i>
+</a>
+</li>
+<li class="nav-item list-inline-item d-none d-sm-block me-3">
+<a href="index.html#" class="nav-link text-muted px-3" title="videocam">
+<i class="zmdi zmdi-videocam zmdi-hc-lg"></i>
+</a>
+</li>
+<li class="nav-item list-inline-item d-none d-sm-block me-3">
+<a href="http://v.bootstrapmb.com/2021/2/yxh1x9666/audio-call.html" class="nav-link text-muted px-3" title="Call">
+<i class="zmdi zmdi-phone-forwarded zmdi-hc-lg"></i>
+</a>
+</li>
+<li class="nav-item list-inline-item add-user-btn">
+<a href="index.html#" class="nav-link text-muted px-3" title="Add Account">
+<i class="zmdi zmdi-account-add zmdi-hc-lg"></i>
+</a>
+</li>
+
+<li class="nav-item list-inline-item d-block d-sm-none px-3">
+<div class="dropdown">
+<a class="nav-link text-muted px-0" href="index.html#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<i class="zmdi zmdi-more-vert zmdi-hc-lg"></i>
+</a>
+<div class="dropdown-menu dropdown-menu-right">
+<a class="dropdown-item" href="index.html#">Search chat</a>
+<a class="dropdown-item" href="index.html#">Attache Image</a>
+<a class="dropdown-item" href="index.html#">Video call</a>
+<a class="dropdown-item" href="index.html#">Call</a>
+<a class="dropdown-item" href="index.html#">Add New</a>
+</div>
+</div>
+</li>
+
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div class="collapse" id="chat-search-div">
+<div class="container-xxl py-2">
+<div class="input-group">
+<input type="text" class="form-control" placeholder="Find messages in current conversation">
+<div class="input-group-append">
+<span class="input-group-text text-muted">0 / 0</span>
+</div>
+<div class="input-group-append">
+<button type="button" class="btn btn-secondary">Search</button>
+<button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<span class="sr-only">Toggle Dropdown</span>
+</button>
+<div class="dropdown-menu dropdown-menu-right shadow border-0">
+<a class="dropdown-item" href="index.html#">Action</a>
+<a class="dropdown-item" href="index.html#">Another action</a>
+<a class="dropdown-item" href="index.html#">Something else here</a>
+ <div role="separator" class="dropdown-divider"></div>
+<a class="dropdown-item" href="index.html#">Separated link</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="chat-content">
+<div class="container-xxl">
+<ul class="list-unstyled py-4" id="tbody">
+
+
+</ul></div></div>
+
+
+<div class="chat-footer border-top py-xl-4 py-lg-2 py-2">
+<div class="container-xxl">
+<div class="row">
+<div class="col-12">
+<div class="input-group align-items-center">
+<input type="text" class="form-control border-0 pl-0" placeholder="Type your message..." id="b">
+<div class="input-group-append d-none d-sm-block">
+<span class="input-group-text border-0">
+<button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="" type="button" data-original-title="Refresh"><i class="zmdi zmdi-refresh font-22"></i></button>
+</span>
+</div>
+<div class="input-group-append"><span class="input-group-text border-0"><button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="" type="button" data-original-title="Smaily"><i class="zmdi zmdi-mood font-22"></i></button></span></div><div class="input-group-append"><span class="input-group-text border-0"><button class="btn btn-sm btn-link text-muted" data-toggle="tooltip" title="" type="button" data-original-title="Attachment"><i class="zmdi zmdi-attachment font-22"></i></button></span></div><div class="input-group-append">
+<span class="input-group-text border-0 pr-0">
+<button type="submit" class="btn btn-primary"  onclick="sendMsg()" style="background-color: #21aa93;border-color: #21aa93;"><span class="d-none d-md-inline-block me-2">Send</span><i class="zmdi zmdi-mail-send"></i></button>
+</span>
+</div></div></div></div></div></div>
+
+
+</div><div class="user-detail-sidebar py-xl-4 py-3 px-xl-4 px-3"><div class="d-flex flex-column"><div class="header border-bottom pb-4 d-flex justify-content-between"><div><h6 class="mb-0 font-weight-bold">User Details</h6><span class="text-muted">Update your profile details</span></div><div><button class="btn btn-link text-muted close-chat-sidebar" type="button"><i class="zmdi zmdi-close"></i></button></div></div><div class="body mt-4"><div class="d-flex justify-content-center"><div class="avatar xxl"><img class="avatar xxl rounded-circle" src="./ichatfiles/avatar2(1).jpg" alt="avatar"></div></div><div class="text-center mt-3 mb-5"><h4>Jason Porter</h4><span class="text-muted"><a href="http://v.bootstrapmb.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f4999d979c91989891da938691919ab49399959d98da979b99">[email&nbsp;protected]</a></span><p>+14 123 456 789 - New york(USA)</p></div><ul class="chat-list"><li class="header d-flex justify-content-between ps-3 pe-3 mb-1"><span>mutual friend</span></li><li><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar1.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Michelle Green</h6></div><div class="text-truncate">+14 123 456 258</div></div></div></div></a></li><li><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar2.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Jason Porter</h6></div><div class="text-truncate">+14 123 456 963</div></div></div></div></a></li><li><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar3.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Elizabeth Martin</h6></div><div class="text-truncate">+14 123 456 753</div></div></div></div></a></li></ul></div></div></div><div class="addnew-user-sidebar py-xl-4 py-3 px-xl-4 px-3"><div class="d-flex flex-column"><div class="header border-bottom pb-4 d-flex justify-content-between"><div><h6 class="mb-0 font-weight-bold">Add new member</h6><span class="text-muted">Update your profile details</span></div><div><button class="btn btn-link text-muted close-chat-sidebar" type="button"><i class="zmdi zmdi-close"></i></button></div></div><div class="body mt-4"><div class="form-group input-group-lg search mb-3"><i class="zmdi zmdi-search"></i><input type="text" class="form-control" placeholder="Search..."></div><ul class="chat-list"><li class="header d-flex justify-content-between ps-3 pe-3 mb-1"><span>A</span><div class="dropdown"><a class="btn btn-link px-1 py-0 border-0 text-muted dropdown-toggle" href="index.html#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="index.html#">Action</a><a class="dropdown-item" href="index.html#">Another action</a><a class="dropdown-item" href="index.html#">Something else here</a></div></div></li><li><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-plus-circle"></i></button></div><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar1.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Amelia Green</h6></div><div class="text-truncate">last seen 2 hours ago </div></div></div></div></a></li><li><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-plus-circle"></i></button></div><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar3.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Ava Green</h6></div><div class="text-truncate">last seen 1 hours ago </div></div></div></div></a></li><li class="header d-flex justify-content-between ps-3 pe-3 mb-1"><span>C</span></li><li><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-plus-circle"></i></button></div><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar4.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Charlotte Green</h6></div><div class="text-truncate">last seen 6 hours ago </div></div></div></div></a></li><li><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-plus-circle"></i></button></div><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar5.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Chloe Green</h6></div><div class="text-truncate">last seen 3 hours ago </div></div></div></div></a></li><li><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-plus-circle"></i></button></div><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar6.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Charles Green</h6></div><div class="text-truncate">last seen 2 hours ago </div></div></div></div></a></li><li class="header d-flex justify-content-between ps-3 pe-3 mb-1"><span>D</span></li><li><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-plus-circle"></i></button></div><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar4.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">David Green</h6></div><div class="text-truncate">last seen 6 hours ago </div></div></div></div></a></li><li class="header d-flex justify-content-between ps-3 pe-3 mb-1"><span>M</span></li><li><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-plus-circle"></i></button></div><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar8.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Michael Green</h6></div><div class="text-truncate">last seen 6 hours ago </div></div></div></div></a></li><li><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-plus-circle"></i></button></div><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar8.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Mohammad</h6></div><div class="text-truncate">last seen 6 hours ago </div></div></div></div></a></li><li class="header d-flex justify-content-between ps-3 pe-3 mb-1"><span>T</span></li><li><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-plus-circle"></i></button></div><a href="index.html#" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><img class="avatar rounded-circle" src="./ichatfiles/avatar9.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">Tommy Green</h6></div><div class="text-truncate">last seen 6 hours ago </div></div></div></div></a></li></ul></div></div></div></div><div class="modal fade" id="InviteFriends" tabindex="-1" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Invite New Friends</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div><div class="modal-body"><form><div class="form-group"><label>Email address</label><input type="email" class="form-control"><small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small></div></form><div class="mt-5"><button type="button" class="btn btn-primary">Send Invite</button><button type="button" class="btn btn-link" data-dismiss="modal">Close</button></div></div></div></div></div></div>
+
+<script src="./ichatfiles/jquery-3.5.1.min.js" type="text/javascript"></script>
+<script src="./ichatfiles/bootstrap.bundle.min.js" type="text/javascript"></script>
+<script src="./ichatfiles/bootstrap-datepicker.min.js" type="text/javascript"></script>
+<script src="./ichatfiles/template.js" type="text/javascript"></script>
+<script src="./ichatfiles/notiflix-2.7.0.min.js" type="text/javascript"></script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+
+// Notiflix Notify Init - global.js
+Notiflix.Notify.Init({width:'300px',fontSize:'14px',timeout:4000,messageMaxLength:200,});
+// Notiflix Report Init - global.js
+Notiflix.Report.Init({svgSize:'90px',plainText:false,messageMaxLength:200,});
+//Notiflix.Notify.Success('Sol lucet omnibus');
+//Notiflix.Notify.Failure('Qui timide rogat docet negare');
+
+
+
+    var is_conn = false;
+    var websocket = null;
+    var is_login = false;
+    var usr = '';
+    var usr_phone = '';
+    var token='';
+    var i = 0;
+    var re_time = null;
+    var send_id = 0;
+    var send_name = 'all';
+    var me_id = 0;
+    var userkey='';
+    var sendpic={};
+    var currentpic=0;
+    
+ 
+    function init() {
+        var wsServer = 'ws://192.168.50.24:9502';
+        websocket = new WebSocket(wsServer);
+        //setcookie("postedArticle", true, time() + (60));
+        //*****************************************************
+        websocket.onopen = function (evt) {
+
+            is_conn = true;
+            console.log("Connected to WebSocket server.");
+            if (re_time !== null) {
+                clearInterval(re_time);
+            }
+
+            if(getCookie('token')!=null){
+                var login_json = login_arr = {
+                'code': 5,
+                'msg': '',
+                'data': [{
+                    'token': getCookie('token'),
+                    'usr': getCookie('usr')
+                }]
+               
+            };
+ 
+            var json = JSON.stringify(login_json);
+ 
+            websocket.send(json);
+            
+            }else {
+                is_login=false;
+            }
+            
+             //让cookie过期达到网站失效重新登录*************,直接用getcookie，不用全局变量！
+            
+            switch_tab(2);
+        };
+ 
+        websocket.onclose = function (evt) {
+            console.log("Disconnected");
+            switch_tab(4);
+            is_conn = false;
+            if (re_time === null) {
+                re_time = setInterval(re_conn, 1000);
+            }
+        };
+ 
+        websocket.onmessage = function (evt) {
+            console.log('Retrieved data from server: ' + evt.data);
+            console.log(getCookie('token'));
+            var json_data = JSON.parse(evt.data);
+            switch (json_data.code) {
+                case 1:
+                    // login success
+                    is_login = true;
+                    switch_tab(3);
+
+                    usr = json_data.msg['username'];
+                    token = json_data.msg['token'];
+                    me_id = json_data.msg['id'];
+                    usr_phone = json_data.msg['usr_phone'];
+                    $("#currenttoken").val("");
+                    //$.cookie('token', token, { expires: 1 });
+                    setCookie('token',token,"d1");
+                    setCookie('usr',usr_phone,"d1");
+                    console.log("cookie is :" + getCookie('token'));
+                    $(".chat_header").html('Welcome: '+usr);
+
+                     console.log("This id is :" + me_id);
+                    
+                    break;
+                case 2:
+                    // get message
+                    //console.log("aaaa"+me_id);
+                    if (json_data.data.from !== me_id) {
+                        create_chat(true, json_data.data.from_name+"@"+json_data.data.to_name+" : ",json_data.data.msg);
+                    }
+                    break;
+                case 3:
+                    // register success
+                    Notiflix.Notify.Success('register success!');
+                 
+                    $("#register_phone").val("");
+                    $("#register_username").val("");
+                    $("#register_password").val("");
+                    switch_tab(2);
+                    break;
+                case 4:
+                    //get all in line
+                    create_friend_item(json_data.data);
+                    break;
+               case 5://check cookie
+                   is_login=false;
+                   
+               
+
+                case 1000:
+                    Notiflix.Notify.Failure("<p style='color: #ee0000;'>" + json_data.msg + "</p>");
+                   
+                    break;
+            }
+        };
+ 
+        websocket.onerror = function (evt, e) {
+            console.log('Error occured: ' + evt.data);
+        };
+    
+    }
+
+    function register() {
+        var register_json = {
+            'code': 3,
+            'msg': '',
+            'data': [{
+                'phone': $("#register_phone").val(),
+                'username': $("#register_username").val(),
+                'password': $("#register_password").val()
+            }]
+        };
+ 
+        var json = JSON.stringify(register_json);
+ 
+        websocket.send(json);
+    }
+
+
+ 
+    function login() {
+        if (is_login) {
+            Notiflix.Notify.Success("this window is login!");
+
+        } else {
+            var login_json = login_arr = {
+                'code': 1,
+                'msg': '',
+                'data': [{
+                    'psd': $("#login_password").val(),
+                    'usr': $("#login_usernum").val()
+                }]
+               
+            };
+            
+            usr_phone = $("#login_usernum").val();
+            var json = JSON.stringify(login_json);
+ 
+            websocket.send(json);
+        }
+    }
+ 
+    function sendMsg() {
+        var send_msg = $("#b").val();
+       
+       
+        if (send_msg!='') {
+            //norefresh();
+            if(getCookie('token')!=null){
+            var login_json = {
+                'code': 2,
+                'msg': '',
+                'data': [{
+                    'from': me_id,
+                    'from_name':usr,
+                    'to': send_id,
+                    'to_name':send_name,
+                    'msg': send_msg,
+                    'token':token
+                }]
+            };
+ 
+            var json = JSON.stringify(login_json);
+            
+            websocket.send(json);
+ 
+            create_chat(false, "","@: "+send_name+"<br>"+send_msg);
+            //console.log(send_name);
+ 
+            $("#b").val("");
+            }else{
+                
+                console.log("Disconnected");
+                // is_conn = false;
+                // is_login=false;
+                // switch_tab(1);
+                location.reload();
+            }
+        } else {
+            Notiflix.Notify.Success("please input something");
+        }
+    }
+
+
+
+     function create_friend_item(data) {
+        $(".friend_item li").remove(); 
+ 
+        for (var i = 0; i < data.length; i++) {
+            for (var key in data[i]) {
+                var avatar = key%10;
+
+                if (parseInt(key) !== parseInt(me_id)) {
+                     sendpic[key] = avatar;
+                    $(".friend_item").append('<li class="online active"><div class="hover_action"><button type="button" class="btn btn-link text-info"><i class="zmdi zmdi-eye"></i></button><button type="button" class="btn btn-link text-warning"><i class="zmdi zmdi-star"></i></button><button type="button" class="btn btn-link text-danger"><i class="zmdi zmdi-delete"></i></button></div><a href="javascript:void(0)" id="'+key+'" class="card"><div class="card-body"><div class="media"><div class="avatar me-3"><span class="status rounded-circle"></span><img class="avatar rounded-circle" src="./ichatfiles/avatar'+avatar+'.jpg" alt="avatar"></div><div class="media-body overflow-hidden"><div class="d-flex align-items-center mb-1"><h6 class="text-truncate mb-0 me-auto">'+ data[i][key] +'</h6><p class="small text-muted text-nowrap ms-4 mb-0"> Time</p></div><div class="text-truncate">It is a long information , but hide for you</div></div></div></div></a></li>');
+                      
+                }
+            }
+        }
+ 
+ 
+        $(".friend_item li a").click(function () {
+            $(".send_obj").text($(this).text());
+            send_id = parseInt($(this).attr("id"));
+            send_name = $(this).find('h6').text();
+            currentpic = findpicf(send_id)
+             $('.directname').text(send_name)
+             $('.headerimg').attr('src','./ichatfiles/avatar'+currentpic+'.jpg')//这里通过js修改headering里面的值，不能直接在html里添加变量，要调用
+            
+        });
+    }
+    function findpicf(findkey){
+
+        return sendpic[findkey];
+    }
+
+
+           
+    function setCookie(name,value,time){
+        var strsec = getsec(time);
+        var exp = new Date();
+        exp.setTime(exp.getTime() + strsec*1);
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+    }
+    function getsec(str){
+        //Notiflix.Notify.Success(str);
+        var str1=str.substring(1,str.length)*1; 
+        var str2=str.substring(0,1); 
+        if (str2=="s"){
+            return str1*1000;
+        }else if (str2=="h"){
+            return str1*60*60*1000;
+        }else if (str2=="d"){
+            return str1*24*60*60*1000;
+        }
+    }
+    function getCookie(name)
+    {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg)) return unescape(arr[2]);
+        else return null;
+    }
+    //删除cookies
+    function delCookie(name)
+    {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval=getCookie(name);
+        if(cval!=null) document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+        location.reload();
+    }
+
+
+
+    //Create chat message list after chat
+    function create_chat(left, title,msg) {
+        console.log(title);
+        if (left) {
+
+            $("#tbody").append('<li class="d-flex message"><div class="mr-lg-3 me-2"><img class="avatar sm rounded-circle" src="./ichatfiles/avatar5.jpg" alt="avatar"></div><div class="message-body"><span class="date-time text-muted">'+title+'</span><div class="message-row d-flex align-items-center"><div class="message-content p-3">'+msg+'</div><div class="dropdown"><a class="text-muted ms-1 p-2 text-muted" href="index.html#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="index.html#">Edit</a><a class="dropdown-item" href="index.html#">Share</a><a class="dropdown-item" href="index.html#">Delete</a></div></div></div></div></li>')
+        } else {
+            $("#tbody").append('<li class="d-flex message right"><div class="message-body"><span class="date-time text-muted">'+title+'<i class="zmdi zmdi-check-all text-primary"></i></span><div class="message-row d-flex align-items-center justify-content-end"><div class="dropdown"><a class="text-muted me-1 p-2 text-muted" href="index.html#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="zmdi zmdi-more-vert"></i></a><div class="dropdown-menu"><a class="dropdown-item" href="index.html#">Edit</a><a class="dropdown-item" href="index.html#">Share</a><a class="dropdown-item" href="index.html#">Delete</a></div></div><div class="message-content border p-3">'+msg+'</div></div></div></li>')
+        }
+ 
+        var root = document.getElementsByClassName("chat_right_table");
+        //root.scrollIntoView(true);
+    }
+     // Which panel to show
+    function switch_tab(res) {
+        all_none();
+        switch (res) {
+            case 1:
+                $(".register").css("display", 'block');
+                break;
+            case 2:
+                $(".login ").css("display", 'block');
+                break;
+               
+            case 3:
+                $(".chat_div").css("display", 'flex');
+                break;
+            case 4:
+                $(".error").css("display", 'block');
+                break;
+        }
+       
+    }
+//Hide all panels
+    function all_none() {
+        $(".register").css("display", 'none');
+        $(".login").css("display", 'none');
+        $(".chat_div").css("display", 'none');
+        $(".error").css("display", 'none');
+    }
+ 
+    function re_conn() {
+        i++;
+        $(".error_tips").text(i);
+        init();
+    }
+ 
+         //Capture the key up event of the document object
+    $(document).keyup(function (e) {
+                 //The key information object is passed in as a parameter
+        if (e.keyCode === 13) {
+                         //After carriage return
+            sendMsg();
+        }
+    });
+ 
+    init();
+
+
+
+</script>
+</body>
+</html>
