@@ -22,9 +22,9 @@ class WebSocket
           
          $this->redis_conn = new Redis();
   
-         $this->redis_conn->connect('******', 6379);//your ip address
+         $this->redis_conn->connect('*******', '****');//your ip address
          
-         $this->ws = new swoole_websocket_server("0.0.0.0", 9502);
+         $this->ws = new swoole_websocket_server("0.0.0.0", "****");
   
                   //Monitor the WebSocket connection open event
          $this->ws->on('open', function ($ws, $request) {

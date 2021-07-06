@@ -314,7 +314,8 @@
 <script src="./ichatfiles/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script src="./ichatfiles/template.js" type="text/javascript"></script>
 <script src="./ichatfiles/notiflix-2.7.0.min.js" type="text/javascript"></script>
-<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="./ichatfiles/cookie.js" type="text/javascript"></script>
+<script src="./ichatfiles/en.js" type="text/javascript"></script>
 <script>
 
 // Notiflix Notify Init - global.js
@@ -340,10 +341,10 @@ Notiflix.Report.Init({svgSize:'90px',plainText:false,messageMaxLength:200,});
     var userkey='';
     var sendpic={};
     var currentpic=0;
-    
- 
+    var key="djldnjskfndks";
+
     function init() {
-        var wsServer = 'ws://192.168.50.24:9502';
+        var wsServer = 'ws://*************';
         websocket = new WebSocket(wsServer);
         //setcookie("postedArticle", true, time() + (60));
         //*****************************************************
@@ -389,9 +390,14 @@ Notiflix.Report.Init({svgSize:'90px',plainText:false,messageMaxLength:200,});
         };
  
         websocket.onmessage = function (evt) {
-            console.log('Retrieved data from server: ' + evt.data);
-            console.log(getCookie('token'));
+           // console.log('Retrieved data from server: ' + evt.data);
+            //console.log(getCookie('token'));
             var json_data = JSON.parse(evt.data);
+            if(json_data.data.msg){
+                //console.log(json_data.data.msg)
+                json_data.data.msg = decryptByDES(json_data.data.msg,key);
+                //console.log(json_data.data.msg)
+            }
             switch (json_data.code) {
                 case 1:
                     // login success
@@ -416,7 +422,8 @@ Notiflix.Report.Init({svgSize:'90px',plainText:false,messageMaxLength:200,});
                     // get message
                     //console.log("aaaa"+me_id);
                     if (json_data.data.from !== me_id) {
-                        create_chat(true, json_data.data.from_name+"@"+json_data.data.to_name+" : ",json_data.data.msg);
+
+                        create_chat(true, json_data.data.from_name+"@"+json_data.data.to_name+" : ",decryptByDES(json_data.data.msg,key));
                     }
                     break;
                 case 3:
@@ -489,10 +496,33 @@ Notiflix.Report.Init({svgSize:'90px',plainText:false,messageMaxLength:200,});
             websocket.send(json);
         }
     }
+
+function encryptByDES(message, key){
+    var keyHex = CryptoJS.enc.Utf8.parse(key);
+    var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    return encrypted.ciphertext.toString();
+}
+//DES 解密
+function decryptByDES(ciphertext, key){
+    var keyHex = CryptoJS.enc.Utf8.parse(key);
+    var decrypted = CryptoJS.DES.decrypt({
+        ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
+    }, keyHex, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    var result_value = decrypted.toString(CryptoJS.enc.Utf8);
+    return result_value;
+}
+
+
  
     function sendMsg() {
         var send_msg = $("#b").val();
-       
+       send_msg= encryptByDES(send_msg,key);
        
         if (send_msg!='') {
             //norefresh();
@@ -514,7 +544,7 @@ Notiflix.Report.Init({svgSize:'90px',plainText:false,messageMaxLength:200,});
             
             websocket.send(json);
  
-            create_chat(false, "","@: "+send_name+"<br>"+send_msg);
+            create_chat(false, "","@: "+send_name+"<br>"+decryptByDES(send_msg,key));
             //console.log(send_name);
  
             $("#b").val("");
